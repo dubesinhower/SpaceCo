@@ -3,6 +3,7 @@
 #include <boost\ptr_container\ptr_vector.hpp>
 #include <boost\ptr_container\ptr_list.hpp>
 #include "Planet.h"
+#include "Selection.h"
 #include <vector>
 #include <queue>
 #include <ctime>
@@ -16,11 +17,13 @@ public:
 	~Level(void);
 
 	sf::Vector2i getDimension() { return dimension; };
-	void draw(sf::RenderWindow& window);
+	boost::ptr_vector<Planet> getPlanetReferences() { return planets; };
+	void draw(sf::RenderWindow& window, sf::Vector2f viewTopLeft, sf::Vector2f viewBottomRight);
 
 private:
 	sf::Vector2i dimension;
 	boost::ptr_vector<Planet> planets;
+	Selection selection;
 
 	void generateRandomPlanets(int numberOfPlanets, int spaceBetweenPlanets, int minPlanetSize, int maxPlanetSize);
 

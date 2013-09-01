@@ -3,7 +3,7 @@
 Level::Level(sf::Vector2i dimension, int spaceBetweenPlanets, int minPlanetSize, int maxPlanetSize)
 {
 	this->dimension = dimension;
-	std::cout << dimension.x << ", " << dimension.y << std::endl;
+	//std::cout << dimension.x << ", " << dimension.y << std::endl;
 	srand(time(0));
 	generateRandomPlanets(30, spaceBetweenPlanets, minPlanetSize, maxPlanetSize);
 }
@@ -14,11 +14,13 @@ Level::~Level(void)
 
 }
 
-void Level::draw(sf::RenderWindow& window)
+void Level::draw(sf::RenderWindow& window, sf::Vector2f viewTopLeft, sf::Vector2f viewBottomRight)
 {
 	for(Planet p: planets)
 	{
-		p.draw(window);
+		sf::Vector2f pPosition = p.getPosition();
+		if(pPosition.x > viewTopLeft.x && pPosition.x < viewBottomRight.x && pPosition.y > viewTopLeft.y && pPosition.y < viewBottomRight.y)
+			p.draw(window);
 	}
 }
 
@@ -30,7 +32,7 @@ void Level::generateRandomPlanets(int newPoints, int spaceBetweenPlanets, int mi
 	planets.clear();
 
 	int cellSize = (int)spaceBetweenPlanets/sqrt(2);
-	std::cout << cellSize << std::endl;
+	//std::cout << cellSize << std::endl;
 
 	std::vector<std::vector<int> > grid((dimension.x/cellSize) + 1, std::vector<int> ((dimension.y/cellSize) + 1, 0));
 	std::cout << grid.size() << " " << grid[0].size() << std::endl;
@@ -41,11 +43,12 @@ void Level::generateRandomPlanets(int newPoints, int spaceBetweenPlanets, int mi
 	processingPoints.push(firstPoint);
 	finalizedPoints.push_back(firstPoint);
 	sf::Vector2i firstPointGridPosition = getGridPositionFromPoint(firstPoint, cellSize);
-	std::cout << firstPointGridPosition.x << " " << firstPointGridPosition.y << std::endl;
+	//std::cout << firstPointGridPosition.x << " " << firstPointGridPosition.y << std::endl;
 	grid[firstPointGridPosition.x][firstPointGridPosition.y] = 1;
 
 	while(!processingPoints.empty() || finalizedPoints.size() == 20)
 	{
+		std::cout << "generating points" << std::endl;
 		sf::Vector2i point = processingPoints.front();
 		processingPoints.pop();
 		for(int i = 0; i < newPoints; i++)
@@ -57,7 +60,7 @@ void Level::generateRandomPlanets(int newPoints, int spaceBetweenPlanets, int mi
 				processingPoints.push(newPoint);
 				finalizedPoints.push_back(newPoint);
 				sf::Vector2i newPointGridPosition = getGridPositionFromPoint(newPoint, cellSize);
-				std::cout << newPoint.x << " " << newPoint.y << " " << newPointGridPosition.x << " " << newPointGridPosition.y << std::endl;
+				//std::cout << newPoint.x << " " << newPoint.y << " " << newPointGridPosition.x << " " << newPointGridPosition.y << std::endl;
 				grid[newPointGridPosition.x][newPointGridPosition.y] = 1;
 			}
 		}

@@ -89,6 +89,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Selection.cpp" />
     <ClCompile Include="Targetable.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -98,8 +100,10 @@
     <ClInclude Include="Movable.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Screens.h" />
+    <ClInclude Include="Selection.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Targetable.h" />
   </ItemGroup>

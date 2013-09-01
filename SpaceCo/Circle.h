@@ -8,13 +8,14 @@ class Circle :
 	public Shape
 {
 public:
-	Circle(sf::Vector2f position, float radius, sf::Color color)
+	Circle(sf::Vector2f position, float radius)
 	{
 		graphic.setPosition(position);
 		graphic.setRadius(radius);
-		graphic.setFillColor(color);
 		graphic.setOrigin(sf::Vector2f(radius, radius));
 	};
+	~Circle(void);
+	void setFillColor(sf::Color color) { graphic.setFillColor(color); };
 	void setPosition(sf::Vector2f position) { graphic.setPosition(position); };
 	void setPositionX(float xPosition) { graphic.setPosition(xPosition, graphic.getPosition().y); };
 	void setPositionY(float yPosition) { graphic.setPosition(graphic.getPosition().x, yPosition); };
@@ -32,7 +33,7 @@ public:
 		std::cout << pi * pow(getRadius(), 2) << std::endl;
 		return (pi * pow(getRadius(), 2)); 
 	};
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window)  { window.draw(graphic); };
 
 private:
 	sf::CircleShape graphic;

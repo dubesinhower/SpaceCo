@@ -6,7 +6,10 @@
 class Targetable
 {
 public:
-	Targetable(sf::Vector2f position, float radius, sf::Color color) : circle(position, radius, color) {};
+	Targetable(sf::Vector2f position, float radius, sf::Color color) : circle(position, radius)
+	{
+		circle.setFillColor(color);
+	};
 	~Targetable(void) {};
 
 	bool isPointInside(sf::Vector2f point)
